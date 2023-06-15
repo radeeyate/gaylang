@@ -1,0 +1,9 @@
+# ignore gaylang files
+*.gay
+
+# ignore cached, nuitka, and build files
+__pycache__
+main.build
+main.dist
+main.onefile-build
+*.exe
