@@ -2,6 +2,8 @@
 
 gaylang is a "programming language" written in Python meant to be a joke, and written in pride month because I was bored.
 
+Programs are run by running it with the interpreter or with python. If running it with Python, run `python main.py yourfile.gay`  (Or `python3` on Linux and MacOS). If running it from the interpreter, just run `<interpreter file> yourfile.gay`. That'd be `gaylang-windows yourfile.gay` on Windows, and `./gaylang-arm64 yourfile.gay` if on Linux with arm64 architecture. (more architectures coming soon.)
+
 ## Syntax
 
 All programs must start with `🌈 pride 🏳️‍🌈` and end with `🌈end🏳️‍🌈`. 
