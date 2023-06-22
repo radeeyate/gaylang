@@ -7,3 +7,6 @@ main.build
 main.dist
 main.onefile-build
 *.exe
+*.cmd
+gaylang.zip
+gaylang-arm64

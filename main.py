@@ -5,7 +5,6 @@ from sys import argv
 # Token types
 TOKEN_PRIDE = "PRIDE"
 TOKEN_VARIABLE = "VARIABLE"
-TOKEN_CONVERT = "CONVERT"
 TOKEN_VALUE = "VALUE"
 TOKEN_YAAAS = "YAAAS"
 TOKEN_SAY = "SAY"
@@ -20,7 +19,7 @@ TOKEN_REGEX = [
     # (TOKEN_VARIABLE, r'💃([^💃🌈🏳️‍🌈]+)\s+is\s+"([^"]+)"💃'),
     (TOKEN_VARIABLE, r"💃([^💃🌈🏳️‍🌈]+)\s+is\s+([^💃🌈🏳️‍🌈]+)💃"),
     (TOKEN_YAAAS, r"🔥yaaaas💃"),
-    (TOKEN_SAY, r'🌈say\s+([^🌈🎉]+)🎉'),
+    (TOKEN_SAY, r"🌈say\s+([^🌈🎉]+)🎉"),
     (TOKEN_TELL, r"🌈tell\s+💃([^💃🌈🏳️‍🌈]+)🌈🎉"),
     (TOKEN_END, r"🔥end💃"),
     (TOKEN_TERMINATION, r"🌈end🏳️‍🌈"),
@@ -33,10 +32,10 @@ def tokenize(code):
     code = code.strip()
     lines = code.split("\n")  # Split code into lines
     line_number = 1  # Initialize line number
-    
+
     for line in lines:
         line = line.strip()
-        
+
         while line:
             matched = False
             for token_type, regex in TOKEN_REGEX:
@@ -44,14 +43,16 @@ def tokenize(code):
                 if match:
                     token_value = match.group(0)
                     tokens.append((token_type, token_value))
-                    line = line[len(token_value):].strip()
+                    line = line[len(token_value) :].strip()
                     matched = True
                     break
             if not matched:
-                raise SyntaxError(f"Invalid Gaylang syntax at line {line_number}, token: {line}")
-        
+                raise SyntaxError(
+                    f"Invalid Gaylang syntax at line {line_number}, token: {line}"
+                )
+
         line_number += 1  # Increment line number
-    
+
     return tokens
 
 
@@ -84,12 +85,16 @@ def execute(code):
             ):
                 variable_value = int(variable_value)
             else:
-                if not variable_value.startswith("\"") or not variable_value.endswith("\""):
-                    raise SyntaxError(f"EOL while scanning string literal: {variable_value}")
+                if not variable_value.startswith('"') or not variable_value.endswith(
+                    '"'
+                ):
+                    raise SyntaxError(
+                        f"EOL while scanning string literal: {variable_value}"
+                    )
                 else:
                     variable_value = re.sub(r'^"|"$', "", variable_value)
             variables[variable_name] = variable_value
-            print(variables)
+            # print(variables)
             i += 1
         elif token_type == TOKEN_YAAAS:
             i += 1
@@ -101,7 +106,7 @@ def execute(code):
                     print(get_variable_value(variable_name))
                     i += 1
                 elif token_type == TOKEN_SAY:
-                    match = re.match(r'🌈say\s+([^🌈🎉]+)🎉', token_value)
+                    match = re.match(r"🌈say\s+([^🌈🎉]+)🎉", token_value)
                     string_value = match.group(1)
                     string_value = re.sub(r'^"|"$', "", string_value)
                     print(string_value)
